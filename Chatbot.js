@@ -40,6 +40,17 @@ const Chatbot = () => {
       return greetingResponses[Math.floor(Math.random() * greetingResponses.length)];
     }
 
+    if (userMessage.toLowerCase().includes('how are you?')) {
+      const greetingResponses = responses.greetings;
+      return greetingResponses[Math.floor(Math.random() * greetingResponses.length)];
+    }
+
+    if (userMessage.toLowerCase().includes('what are you doing know?')) {
+      const greetingResponses = responses.answers;
+      return greetingResponses[Math.floor(Math.random() * greetingResponses.length)];
+    }
+
+
     // Example: If the user's message contains "bye", respond with a random farewell
     if (userMessage.toLowerCase().includes('bye')) {
       const farewellResponses = responses.farewells;
