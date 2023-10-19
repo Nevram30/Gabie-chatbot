@@ -1,5 +1,7 @@
 {
-    "greetings": ["Hello!", "Hi there!", "Hey!"],
-    "farewells": ["Goodbye!", "See you later!", "Bye!"]
-  }
+    "greetings": ["Hello!", "Hi there!", "Hey!", "I'm Okay!"],
+    "farewells": ["Goodbye!", "See you later!", "Bye!"],
+    "questions": ["How are you?", "How's it going?", "How's life?", "How are things?"],
+    "answers": ["I am cooking right know"]
+}
   
