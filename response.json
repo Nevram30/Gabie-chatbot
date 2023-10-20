@@ -1,7 +1,72 @@
 {
-    "greetings": ["Hello!", "Hi there!", "Hey!", "I'm Okay!"],
-    "farewells": ["Goodbye!", "See you later!", "Bye!"],
-    "questions": ["How are you?", "How's it going?", "How's life?", "How are things?"],
-    "answers": ["I am cooking right know"]
+    "responses": {
+        "Programs": {
+            "What are the degree programs offered?": [
+                "Bachelor of Elementary Education",
+                "Bachelor of Secondary Education Major In: ENGLISH, MATH, & SOCIAL STUDIES",
+                "Bachelor of Science in Hospitality Management"
+            ],
+            "DO you want to continue?": ["Yes", "No"]
+        },
+        "Services": {
+            "What are the services offered?": [
+                "School Canteen",
+                "Library",
+                "Gymnasium",
+                "AVR (Audio Visual Room)"
+            ],
+            "Do you want to continue?": ["Yes", "No"]
+        },
+        "School fees": {
+            "How much is the tuition for HM?": [
+                "1ST YEAR – 14,372",
+                "2ND YEAR – 15,428",
+                "3RD YEAR – 13,884",
+                "4TH YEAR – 11,028"
+            ],
+            "How much is the tuition for EDUCATION MAJOR IN ENGLISH?": [
+                "1ST YEAR – 12,572",
+                "2ND YEAR – 12,572",
+                "3RD YEAR – 14,508",
+                "4TH YEAR – 7,116"
+            ],
+            "How much is the tuition for EDUCATION MAJOR IN MATH?": [
+                "1ST YEAR – 12,572",
+                "2ND YEAR – 12,572",
+                "3RD YEAR – 12,748",
+                "4TH YEAR – 9,228"
+            ],
+            "How much is the tuition for EDUCATION MAJOR IN SOCIAL STUDIES?": [
+                "1ST YEAR – 12,572",
+                "2ND YEAR – 12,572",
+                "3RD YEAR – 13,452",
+                "4TH YEAR – 7,116"
+            ],
+            "How much is the tuition for EDUCATION BEED?": [
+                "1ST YEAR – 12,572",
+                "2ND YEAR – 12,572",
+                "3RD YEAR – 13,452",
+                "4TH YEAR – 7,116"
+            ],
+            "How much is the tuition for JHS?": [
+                "Grade 7 – 16,805",
+                "Grade 8 – 16,805",
+                "Grade 9 – 16,805",
+                "Grade 10 – 16,805"
+            ],
+            "How much is the tuition for SHS GAS?": [
+                "Grade 11 – 23,755",
+                "Grade 12 – 23,755"
+            ],
+            "How much is the tuition for SHS HUMSS?": [
+                "Grade 11 – 23,755",
+                "Grade 12 – 23,755"
+            ],
+            "Do you want to continue?": ["Yes", "No"]
+        },
+        "Select": {
+            "Yes": ["Rate us!"],
+            "No": ["Kung e select ang no nay mo gawas rating"]
+        }
+    }
 }
-  
