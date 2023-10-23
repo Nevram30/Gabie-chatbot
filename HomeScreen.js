@@ -1,10 +1,10 @@
 import React from "react";
-import { View, SafeAreaView, Text, Button, StyleSheet } from "react-native";
+import { View, SafeAreaView, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
 import CustomButton from "./components/ButtonProps";
 import { auth } from "./firebaseConfig";
 import { useNavigation } from "@react-navigation/native";
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = () => {
   const navigation = useNavigation();
 
   const handleSignOut = () => {
