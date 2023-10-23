@@ -11,7 +11,7 @@ To use the `chatbot` application, follow these steps:
 
 1. Clone the repository to your local machine.
 2. Install the necessary dependencies by running `npm install`.
-3. Start the application by running `expo start`.
+3. Start the application by running `npx expo start`.
 
 ## Documentation
 
