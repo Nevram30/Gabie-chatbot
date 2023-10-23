@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { GiftedChat } from 'react-native-gifted-chat';
-import { Dialogflow_V2 } from 'react-native-dialogflow';
+import React, { useState, useEffect } from "react";
+import { GiftedChat } from "react-native-gifted-chat";
+import { Dialogflow_V2 } from "react-native-dialogflow";
 
-import {dialogflowConfig} from './env';
+import { dialogflowConfig } from "./env";
 
 const BOT_USER = {
   _id: 2,
-  name: 'FAQ Bot',
-  avatar: 'https://i.imgur.com/7k12EPD.png'
+  name: "FAQ Bot",
+  avatar: "https://i.imgur.com/7k12EPD.png",
 };
 
 const Chatbot = () => {
@@ -16,8 +16,8 @@ const Chatbot = () => {
       _id: 1,
       text: `Hi! I am Gabie the FAQ bot 🤖 from Gabreil Taborin College of Davao. I can help you with any questions you have.`,
       createdAt: new Date(),
-      user: BOT_USER
-    }
+      user: BOT_USER,
+    },
   ]);
 
   useEffect(() => {
@@ -35,7 +35,9 @@ const Chatbot = () => {
   };
 
   const onSend = (messages = []) => {
-    setMessages((previousMessages) => GiftedChat.append(previousMessages, messages));
+    setMessages((previousMessages) =>
+      GiftedChat.append(previousMessages, messages)
+    );
 
     let message = messages[0].text;
 
@@ -51,10 +53,12 @@ const Chatbot = () => {
       _id: messages.length + 1,
       text,
       createdAt: new Date(),
-      user: BOT_USER
+      user: BOT_USER,
     };
 
-    setMessages((previousMessages) => GiftedChat.append(previousMessages, [msg]));
+    setMessages((previousMessages) =>
+      GiftedChat.append(previousMessages, [msg])
+    );
   };
 
   return (
@@ -62,11 +66,11 @@ const Chatbot = () => {
       messages={messages}
       onSend={(messages) => onSend(messages)}
       user={{
-        _id: 1
+        _id: 1,
       }}
     />
   );
-}
+};
 
 // const responses = require('./response.json');
 
@@ -109,8 +113,6 @@ const Chatbot = () => {
 
 //     setMessages((previousMessages) => GiftedChat.append(previousMessages, [botMessage]));
 //   };
-
-
 
 //   const getBotResponse = (userMessage) => {
 //     const categories = Object.keys(responses.responses);
