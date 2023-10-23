@@ -14,7 +14,7 @@ const Chatbot = () => {
   const [messages, setMessages] = useState([
     {
       _id: 1,
-      text: `Hi! I am the FAQ bot 🤖 from Aume. I can help you with any questions you have.`,
+      text: `Hi! I am Gabie the FAQ bot 🤖 from Gabreil Taborin College of Davao. I can help you with any questions you have.`,
       createdAt: new Date(),
       user: BOT_USER
     }
