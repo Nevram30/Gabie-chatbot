@@ -1,7 +1,15 @@
 export const dialogflowConfig = {
-    client_email: 'YOUR_CLIENT_EMAIL',
-    private_key: 'YOUR_PRIVATE_KEY',
-    project_id: 'test-bot-aume',
-    language: 'en',
-  };
-  
+  type: "",
+  project_id: "",
+  private_key_id: "",
+  private_key:
+    "-----BEGIN PRIVATE KEY-----",
+  client_email: "",
+  client_id: "",
+  auth_uri: "",
+  token_uri: "",
+  auth_provider_x509_cert_url: "",
+  client_x509_cert_url:
+    "",
+  universe_domain: "",
+};
