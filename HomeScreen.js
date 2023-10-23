@@ -1,6 +1,11 @@
 import React from "react";
-import { View, SafeAreaView, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
-import CustomButton from "./components/ButtonProps";
+import {
+  View,
+  SafeAreaView,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import { auth } from "./firebaseConfig";
 import { useNavigation } from "@react-navigation/native";
 
@@ -25,20 +30,15 @@ const HomeScreen = () => {
     <View style={styles.container}>
       <SafeAreaView>
         <View style={styles.header}>
-          <Text style={styles.title}>Welcome to ChatBot</Text>
+          <Text style={styles.title}>Welcome to Gabriel Taborin Colege of Davao</Text>
         </View>
-        <View style={styles.header}>
-          <CustomButton
-            style={styles.buttonStart}
-            title="Start Chat Now"
-            onPress={handleGetStarted}
-          />
-        </View>
+          <TouchableOpacity style={styles.loginButton} onPress={handleGetStarted}>
+            <Text style={styles.loginButtonText}>Start Chat Now</Text>
+          </TouchableOpacity>
+        <TouchableOpacity style={styles.loginButton} onPress={handleSignOut}>
+          <Text style={styles.loginButtonText}>Logout</Text>
+        </TouchableOpacity>
       </SafeAreaView>
-
-      <TouchableOpacity style={styles.loginButton} onPress={handleSignOut}>
-        <Text style={styles.loginButtonText}>Logout</Text>
-      </TouchableOpacity>
     </View>
   );
 };
@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     justifyContent: "center",
     alignItems: "center",
+    marginLeft: 32,
   },
   loginButtonText: {
     color: "white",

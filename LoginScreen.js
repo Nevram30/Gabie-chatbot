@@ -7,7 +7,6 @@ import {
   Image,
   StyleSheet,
 } from "react-native";
-import { auth } from "./firebaseConfig"; 
 import { useNavigation } from "@react-navigation/native";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
@@ -55,7 +54,8 @@ const handleSignup = () => {
         source={require("./assets/images/chat-bot.jpg")}
         style={styles.logo}
       />
-      <Text style={styles.title}>Login to Chatbot</Text>
+      <Text style={styles.title}>Welcome! Hi I'm Gabie</Text>
+      <Text style={styles.title}>Login and register to help you answer your queries</Text>
       <TextInput
         style={styles.input}
         placeholder="Username"
@@ -86,7 +86,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    fontSize: 24,
+    fontSize: 16,
+    paddingLeft: 20,
+    paddingRight: 20,
     marginBottom: 16,
   },
   input: {
