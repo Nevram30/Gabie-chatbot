@@ -7,44 +7,48 @@ import {
   Image,
   StyleSheet,
 } from "react-native";
-import { auth } from "./firebaseConfig";
+import { auth } from "./firebaseConfig"; 
 import { useNavigation } from "@react-navigation/native";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const auth = getAuth();
   const navigation = useNavigation();
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        navigation.replace("Home");
-      }
-    });
-
-    return unsubscribe;
-  }, []);
-
   const handleLogin = () => {
-    auth
-      .signInWithEmailandPassword(username, password)
-      .then((userCrendentials) => {
-        const user = userCrendentials.user;
-        console.log(user.username);
-      })
-      .catch((error) => (alert = { error, message }));
+    signInWithEmailAndPassword(auth, username, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+        const unsubscribe = auth.onAuthStateChanged(() => {
+          if (user) {
+            navigation.replace("Home");
+          }
+        });
+    
+        return unsubscribe;
+    })
+    .catch((error) => console.error("Login Error:", error));
   };
 
-  const handleSignup = () => {
-    auth
-      .createUserWithEmailAndPassword(username, password)
-      .then((userCrendentials) => {
-        const user = userCrendentials.user;
-        console.log(user.username);
-      })
-      .catch((error) => (alert = { error, message }));
-  };
+const handleSignup = () => {
+  createUserWithEmailAndPassword(auth, username, password)
+  .then((userCredential) => {
+    const user = userCredential.user;
+          useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged(() => {
+          if (user) {
+            navigation.replace("Home");
+          }
+        });
+    
+        return unsubscribe;
+      }, []);
+  })
+  .catch((error) => console.error("Login Error:", error));
+};
+
   return (
     <View style={styles.container}>
       <Image
