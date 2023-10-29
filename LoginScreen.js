@@ -18,20 +18,19 @@ const LoginScreen = () => {
 
   const handleLogin = () => {
     signInWithEmailAndPassword(auth, username, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
+      .then((userCredential) => {
+        const user = userCredential.user;
         const unsubscribe = auth.onAuthStateChanged(() => {
           if (user) {
-            <Text style={styles.label1}>${user.email}</Text>
             navigation.replace("Home");
           }
         });
-    
+
         return unsubscribe;
-    })
-    .catch(() => {
-      alert("Please fill your username and password!");
-    });
+      })
+      .catch(() => {
+        alert("Please fill your username and password!");
+      });
   };
 
   return (
@@ -41,7 +40,9 @@ const LoginScreen = () => {
         style={styles.logo}
       />
       <Text style={styles.title}>Welcome! Hi I'm Gabie</Text>
-      <Text style={styles.title}>Login and register to help you answer your queries</Text>
+      <Text style={styles.title}>
+        Login and register to help you answer your queries
+      </Text>
       <TextInput
         style={styles.input}
         placeholder="Username"
@@ -58,7 +59,10 @@ const LoginScreen = () => {
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Register')}>
+      <TouchableOpacity
+        style={styles.loginButton}
+        onPress={() => navigation.navigate("Register")}
+      >
         <Text style={styles.loginButtonText}>Register</Text>
       </TouchableOpacity>
     </View>

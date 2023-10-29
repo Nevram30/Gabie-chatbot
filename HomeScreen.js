@@ -30,11 +30,13 @@ const HomeScreen = () => {
     <View style={styles.container}>
       <SafeAreaView>
         <View style={styles.header}>
-          <Text style={styles.title}>Welcome to Gabriel Taborin Colege of Davao</Text>
+          <Text style={styles.title}>
+            Welcome to Gabriel Taborin Colege of Davao
+          </Text>
         </View>
-          <TouchableOpacity style={styles.loginButton} onPress={handleGetStarted}>
-            <Text style={styles.loginButtonText}>Start Chat Now</Text>
-          </TouchableOpacity>
+        <TouchableOpacity style={styles.loginButton} onPress={handleGetStarted}>
+          <Text style={styles.loginButtonText}>Start Chat Now</Text>
+        </TouchableOpacity>
         <TouchableOpacity style={styles.loginButton} onPress={handleSignOut}>
           <Text style={styles.loginButtonText}>Logout</Text>
         </TouchableOpacity>
