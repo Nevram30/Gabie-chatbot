@@ -40,7 +40,7 @@ const LoginScreen = () => {
         style={styles.logo}
       />
       <Text style={styles.title}>Welcome! Hi I'm Gabie</Text>
-      <Text style={styles.title}>
+      <Text style={{marginBottom: 10}}>
         Login and register to help you answer your queries
       </Text>
       <TextInput
@@ -57,14 +57,20 @@ const LoginScreen = () => {
         onChangeText={(text) => setPassword(text)}
       />
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-        <Text style={styles.loginButtonText}>Login</Text>
+        <Text style={styles.loginButtonText}>Login as User</Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.loginButton}
-        onPress={() => navigation.navigate("Register")}
-      >
-        <Text style={styles.loginButtonText}>Register</Text>
-      </TouchableOpacity>
+      <View style={{marginBottom: 10}}>
+        <Text style={{ color: "blue" }}>Login as admin</Text>
+      </View>
+      <Text>
+        Do you have an account?{" "}
+        <Text
+          style={{ color: "blue" }}
+          onPress={() => navigation.navigate("Register")}
+        >
+          Register
+        </Text>
+      </Text>
     </View>
   );
 };
