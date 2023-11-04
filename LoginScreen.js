@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -40,9 +40,6 @@ const LoginScreen = () => {
         style={styles.logo}
       />
       <Text style={styles.title}>Welcome! Hi I'm Gabie</Text>
-      <Text style={{marginBottom: 10}}>
-        Login and register to help you answer your queries
-      </Text>
       <TextInput
         style={styles.input}
         placeholder="Username"
@@ -57,11 +54,8 @@ const LoginScreen = () => {
         onChangeText={(text) => setPassword(text)}
       />
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-        <Text style={styles.loginButtonText}>Login as User</Text>
+        <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>
-      <View style={{marginBottom: 10}}>
-        <Text style={{ color: "blue" }}>Login as admin</Text>
-      </View>
       <Text>
         Do you have an account?{" "}
         <Text
@@ -71,6 +65,9 @@ const LoginScreen = () => {
           Register
         </Text>
       </Text>
+      <View style={{ marginTop: 30 }}>
+        <Text style={{ color: "blue" }}>Login as admin</Text>
+      </View>
     </View>
   );
 };
@@ -85,7 +82,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingLeft: 20,
     paddingRight: 20,
-    marginBottom: 16,
+    marginBottom: 20,
   },
   input: {
     width: "80%",
@@ -100,7 +97,7 @@ const styles = StyleSheet.create({
     backgroundColor: "blue",
     width: "80%",
     height: 40,
-    borderRadius: 10,
+    borderRadius: 20,
     marginBottom: 16,
     justifyContent: "center",
     alignItems: "center",

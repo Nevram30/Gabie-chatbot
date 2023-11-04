@@ -9,8 +9,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import PrivacyCheckbox from './PrivacyCheckbox';
-
+import PrivacyCheckbox from "./PrivacyCheckbox";
 
 const RegisterAccount = () => {
   const navigation = useNavigation();
@@ -26,21 +25,28 @@ const RegisterAccount = () => {
       return;
     }
 
-    if (!privacyChecked) {
-      alert('Signup Error: You must agree to the privacy policy.');
-      return;
-    }
-
     const minLength = 8;
     const hasUpperCase = /[A-Z]/.test(password);
     const hasLowerCase = /[a-z]/.test(password);
     const hasNumber = /\d/.test(password);
 
-    if (password.length < minLength || !hasUpperCase || !hasLowerCase || !hasNumber) {
-      alert('Signup Error: Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.');
+    if (
+      password.length < minLength ||
+      !hasUpperCase ||
+      !hasLowerCase ||
+      !hasNumber
+    ) {
+      alert(
+        "Signup Error: Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number."
+      );
       return;
     }
-    
+
+    if (!privacyChecked) {
+      alert("Signup Error: You must agree to the privacy policy.");
+      return;
+    }
+
     createUserWithEmailAndPassword(auth, username, password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -92,8 +98,8 @@ const RegisterAccount = () => {
         />
 
         <PrivacyCheckbox
-        checked={privacyChecked}
-        onPress={() => setPrivacyChecked(!privacyChecked)}
+          checked={privacyChecked}
+          onPress={() => setPrivacyChecked(!privacyChecked)}
         />
 
         <TouchableOpacity style={styles.createbutton} onPress={handleSignup}>
@@ -115,13 +121,13 @@ const styles = StyleSheet.create({
   },
   signupcontainer: {
     padding: 10,
-    marginTop: 1,
+    marginTop: 50,
     margin: 15,
   },
   input1: {
     height: 45,
     borderColor: "gray",
-    borderWidth: 2,
+    borderWidth: 1,
     marginTop: 10,
     padding: 15,
     fontSize: 13,
@@ -130,7 +136,7 @@ const styles = StyleSheet.create({
   createbutton: {
     backgroundColor: "blue",
     height: 40,
-    borderRadius: 10,
+    borderRadius: 20,
     marginBottom: 16,
     marginTop: 16,
     justifyContent: "center",
@@ -138,8 +144,7 @@ const styles = StyleSheet.create({
   },
   createtext: {
     color: "white",
-    fontWeight: "bold",
     textAlign: "center",
-    fontSize: 17,
+    fontSize: 15,
   },
 });

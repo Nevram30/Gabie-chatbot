@@ -22,7 +22,6 @@ const HomeScreen = () => {
   };
 
   const handleGetStarted = () => {
-    // Navigate to the Chatbot screen
     navigation.navigate("Chatbot");
   };
 
@@ -32,15 +31,16 @@ const HomeScreen = () => {
         <View style={styles.header}>
           <Text style={styles.title}>
             Welcome to Gabriel Taborin Colege of Davao
+            User's Tuitorial's
           </Text>
         </View>
-        <TouchableOpacity style={styles.loginButton} onPress={handleGetStarted}>
-          <Text style={styles.loginButtonText}>Start Chat Now</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.loginButton} onPress={handleSignOut}>
-          <Text style={styles.loginButtonText}>Logout</Text>
-        </TouchableOpacity>
       </SafeAreaView>
+      <TouchableOpacity style={styles.loginButton} onPress={handleGetStarted}>
+        <Text style={styles.loginButtonText}>Start Chat Now</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.loginButton} onPress={handleSignOut}>
+        <Text style={styles.loginButtonText}>Logout</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -64,13 +64,12 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     backgroundColor: "blue",
-    width: "80%",
+    width: "100%",
     height: 40,
-    borderRadius: 10,
+    borderRadius: 20,
     marginBottom: 16,
     justifyContent: "center",
     alignItems: "center",
-    marginLeft: 32,
   },
   loginButtonText: {
     color: "white",
