@@ -6,8 +6,6 @@ import HomeScreen from "./HomeScreen";
 import RegisterAccount from "./RegisterAccount";
 import Chatbot from "./Chatbot";
 import OnboardingScreen from "./Onboarding";
-import AdminScreen from "./AdminScreen";
-import { firebase } from "./firebaseConfig";
 
 const Stack = createStackNavigator();
 
@@ -34,7 +32,6 @@ const App = () => {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Register" component={RegisterAccount} />
         <Stack.Screen name="Chatbot" component={Chatbot} />
-        <Stack.Screen name="Admin" component={AdminScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
