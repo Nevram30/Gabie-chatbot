@@ -66,7 +66,10 @@ const RegisterAccount = () => {
   };
 
   return (
-    <ScrollView>
+    <View style={styles.mainContainer}>
+      <View>
+        <Text style={styles.signupHeader}>Create Account</Text>
+      </View>
       <View style={styles.signupcontainer}>
         <Text style={styles.label1}>Email:</Text>
         <TextInput
@@ -106,23 +109,32 @@ const RegisterAccount = () => {
           <Text style={styles.createtext}>Create Account</Text>
         </TouchableOpacity>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
 export default RegisterAccount;
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    paddingTop: 20,
+  },
+  signupcontainer: {
+    padding: 10,
+    marginTop: 5,
+    margin: 15,
+  },
+  signupHeader: {
+    fontWeight: "bold",
+    fontSize: 20,
+    marginTop: 50,
+    marginLeft: 22,
+  },
   label1: {
     fontWeight: "normal",
     fontSize: 15,
     marginTop: 9,
     justifyContent: "center",
-  },
-  signupcontainer: {
-    padding: 10,
-    marginTop: 50,
-    margin: 15,
   },
   input1: {
     height: 45,
