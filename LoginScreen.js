@@ -6,16 +6,13 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
-  Pressable,
 } from "react-native";
-import Modal from "react-native-modal";
 import { useNavigation } from "@react-navigation/native";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const LoginScreen = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [loginModalVisible, setLoginModalVisible] = useState(false);
   const auth = getAuth();
   const navigation = useNavigation();
 
@@ -34,11 +31,6 @@ const LoginScreen = () => {
       .catch(() => {
         alert("Please fill your username and password!");
       });
-  };
-
-  const handleAdminLogin = () => {
-    navigation.navigate("Admin")
-    setLoginModalVisible(false);
   };
 
   return (
@@ -73,37 +65,6 @@ const LoginScreen = () => {
           Register
         </Text>
       </Text>
-      <View style={{ marginTop: 30 }}>
-        <Text
-          style={{ color: "blue" }}
-          onPress={() => setLoginModalVisible(true)}
-        >
-          Login as admin
-        </Text>
-      </View>
-
-      <Modal
-        isVisible={loginModalVisible}
-      >
-        <View style={styles.loginModal}>
-          <Pressable onPress={() => setLoginModalVisible(false)}>
-            <Text style={{ color: "blue" }}>Close</Text>
-          </Pressable>
-          <Text style={styles.title}>Login</Text>
-          <TextInput style={styles.input} placeholder="Username" />
-          <TextInput
-            style={styles.input}
-            placeholder="Password"
-            secureTextEntry
-          />
-          <TouchableOpacity
-            style={styles.loginButton}
-            onPress={handleAdminLogin}
-          >
-            <Text style={styles.loginButtonText}>Login</Text>
-          </TouchableOpacity>
-        </View>
-      </Modal>
     </View>
   );
 };
