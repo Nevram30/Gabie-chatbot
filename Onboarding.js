@@ -1,46 +1,50 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import Swiper from "react-native-swiper";
-import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
+import Poppins from "./assets/fonts/Poppins-Regular.ttf";
 
-const OnboardingScreen = () => {
-  
+export default function OnboardingScreen() {
   const navigation = useNavigation();
 
   return (
     <Swiper showsButtons={true}>
-      {/* First Onboarding Screen */}
       <View style={styles.slide}>
-        <Icon name="ios-information-circle" size={100} color="blue" />
-        <Text style={styles.title}>Hi! Welcome to</Text>
-        <Text style={styles.title}>Gabbie Chatbot App</Text>
-        <Text style={styles.subtitle}>Discover amazing features</Text>
+        <Image source={require("./assets/images/animation1.png")} />
+        <Text style={styles.title}>Hi! Welcome to GTCD Chatbot App</Text>
+        <Text style={styles.subtitle}>Discover chatbot app</Text>
       </View>
-
-      {/* Second Onboarding Screen */}
       <View style={styles.slide}>
-        <Icon name="ios-heart" size={100} color="red" />
-        <Text style={styles.title}>Like and Share</Text>
-        <Text style={styles.subtitle}>Show your love for the app</Text>
+        <Image
+          source={require("./assets/images/animation2.png")}
+          style={styles.logo}
+        />
+        <Text style={styles.title}>The name of the chatbot is Gabie</Text>
+        <Text style={styles.subtitle}>
+          Gabie is the chatbot app for Gabriel Taborin College of Davao for
+          school inqueries
+        </Text>
       </View>
-
-      {/* Third Onboarding Screen */}
       <View style={styles.slide}>
-        <Icon name="ios-checkmark-circle" size={100} color="green" />
+        <Image
+          source={require("./assets/images/animation3.png")}
+          style={styles.logo}
+        />
         <Text style={styles.title}>Get Started</Text>
-        <Text style={styles.subtitle}>Let's begin the journey</Text>
+        <Text style={styles.subtitle}>
+          just click the get started to chat with me see you then
+        </Text>
 
         <TouchableOpacity
           style={styles.getStartedButton}
-          onPress={() => navigation.replace("Login")} // Navigate to the Login screen
+          onPress={() => navigation.replace("Login")}
         >
           <Text style={styles.getStartedText}>Get Started</Text>
         </TouchableOpacity>
       </View>
     </Swiper>
   );
-};
+}
 
 const styles = StyleSheet.create({
   slide: {
@@ -53,26 +57,30 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginTop: 20,
+    padding: 25,
+    textAlign: "center",
   },
   subtitle: {
     fontSize: 18,
     color: "gray",
-    marginTop: 10,
+    marginTop: 0,
+    paddingLeft: 20,
+    paddingRight: 20,
+    textAlign: "center",
+    fontFamily: "Poppins-Regular",
   },
   getStartedButton: {
-    backgroundColor: "blue",
+    backgroundColor: "#D0291C",
     width: "80%",
-    height: 40,
+    height: 50,
     borderRadius: 20,
     marginBottom: 16,
     marginTop: 16,
     justifyContent: "center",
     alignItems: "center",
   },
-  getStartedText:{
+  getStartedText: {
     color: "white",
     fontSize: 16,
-  }
+  },
 });
-
-export default OnboardingScreen;

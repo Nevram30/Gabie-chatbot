@@ -9,7 +9,7 @@ import {
 import { auth } from "./firebaseConfig";
 import { useNavigation } from "@react-navigation/native";
 
-const HomeScreen = () => {
+export default function HomeScreen() {
   const navigation = useNavigation();
 
   const handleSignOut = () => {
@@ -77,4 +77,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;

@@ -7,7 +7,7 @@ const PrivacyCheckbox = ({ checked, onPress }) => {
       {checked ? (
         <Text style={styles.checked}>✓</Text>
       ) : (
-        <Text style={styles.unchecked}>□</Text>
+        <Text style={styles.unchecked}></Text>
       )}
       <Text style={styles.label}>I agree to the privacy policy</Text>
     </TouchableOpacity>
@@ -23,13 +23,17 @@ const styles = StyleSheet.create({
   checked: {
     fontSize: 20,
     marginRight: 10,
+    backgroundColor: "white",
   },
   unchecked: {
-    fontSize: 20,
+    fontSize: 5,
     marginRight: 10,
+    padding: 8,
+    backgroundColor: "white",
   },
   label: {
     fontSize: 16,
+    color: "white",
   },
 });
 

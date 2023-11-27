@@ -10,7 +10,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-const LoginScreen = () => {
+export default function LoginScreen() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const auth = getAuth();
@@ -34,49 +34,71 @@ const LoginScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Image
-        source={require("./assets/images/chat-bot.jpg")}
-        style={styles.logo}
-      />
-      <Text style={styles.title}>Welcome! Hi I'm Gabie</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Username"
-        value={username}
-        onChangeText={(text) => setUsername(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        secureTextEntry
-        value={password}
-        onChangeText={(text) => setPassword(text)}
-      />
-      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-        <Text style={styles.loginButtonText}>Login</Text>
-      </TouchableOpacity>
-      <Text>
-        Do you have an account?{" "}
-        <Text
-          style={{ color: "blue" }}
-          onPress={() => navigation.navigate("Register")}
-        >
-          Register
+    <>
+      <View style={styles.container}>
+        <Image
+          source={require("./assets/images/gtcd.png")}
+          style={styles.logo}
+        />
+        <Text style={styles.title}>Gabie Chatbot</Text>
+      </View>
+      <View style={styles.subContainer}>
+        <Text style={styles.subHeader}>Sign In</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Username"
+          value={username}
+          onChangeText={(text) => setUsername(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          secureTextEntry
+          value={password}
+          onChangeText={(text) => setPassword(text)}
+        />
+        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+          <Text style={styles.loginButtonText}>Login</Text>
+        </TouchableOpacity>
+        <Text style={styles.accountHeader}>
+          Do you have an account?{" "}
+          <Text
+            style={{ color: "white" }}
+            onPress={() => navigation.navigate("Register")}
+          >
+            Register
+          </Text>
         </Text>
-      </Text>
-    </View>
+      </View>
+    </>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 50,
     justifyContent: "center",
     alignItems: "center",
+    fontFamily: "",
+  },
+  subContainer: {
+    flex: 1,
+    alignItems: "center",
+    backgroundColor: "#585E6C",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+  subHeader:{
+    padding: 20,
+    fontSize: 26,
+    marginRight: 200,
+    marginTop: 10,
+    color: "white"
   },
   title: {
-    fontSize: 16,
+    fontSize: 26,
+    fontWeight: "bold",
     paddingLeft: 20,
     paddingRight: 20,
     marginBottom: 20,
@@ -89,9 +111,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 16,
     padding: 8,
+    backgroundColor: "white",
   },
   loginButton: {
-    backgroundColor: "blue",
+    backgroundColor: "#D0291C",
     width: "80%",
     height: 40,
     borderRadius: 20,
@@ -113,6 +136,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
   },
+  accountHeader:{
+    color: "white"
+  }
 });
-
-export default LoginScreen;

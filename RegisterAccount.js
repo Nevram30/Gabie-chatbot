@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   View,
   ScrollView,
+  Image,
   Text,
   StyleSheet,
   TouchableOpacity,
@@ -66,11 +67,15 @@ const RegisterAccount = () => {
   };
 
   return (
-    <View style={styles.mainContainer}>
-      <View>
-        <Text style={styles.signupHeader}>Create Account</Text>
+    <ScrollView style={{backgroundColor: "white"}}>
+      <View style={styles.mainContainer}>
+        <Image
+          source={require("./assets/images/gtcd.png")}
+          style={styles.logo}
+        />
       </View>
       <View style={styles.signupcontainer}>
+        <Text style={styles.signupHeader}>Signup</Text>
         <Text style={styles.label1}>Email:</Text>
         <TextInput
           style={styles.input1}
@@ -109,7 +114,7 @@ const RegisterAccount = () => {
           <Text style={styles.createtext}>Create Account</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -117,37 +122,45 @@ export default RegisterAccount;
 
 const styles = StyleSheet.create({
   mainContainer: {
-    paddingTop: 20,
+    flex: 1,
+    paddingTop: 50,
+    justifyContent: "center",
+    alignItems: "center",
   },
   signupcontainer: {
-    padding: 10,
-    marginTop: 5,
-    margin: 15,
+    padding: 30,
+    marginTop: 50,
+    backgroundColor: "#585E6C",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   signupHeader: {
     fontWeight: "bold",
-    fontSize: 20,
-    marginTop: 50,
-    marginLeft: 22,
+    color: "white",
+    fontSize: 26,
+    paddingTop: 5,
+    paddingBottom: 20,
   },
   label1: {
     fontWeight: "normal",
     fontSize: 15,
     marginTop: 9,
+    color: "white",
     justifyContent: "center",
   },
   input1: {
-    height: 45,
+    height: 50,
     borderColor: "gray",
     borderWidth: 1,
     marginTop: 10,
     padding: 15,
-    fontSize: 13,
+    fontSize: 16,
     borderRadius: 10,
+    backgroundColor: "white",
   },
   createbutton: {
-    backgroundColor: "blue",
-    height: 40,
+    backgroundColor: "#D0291C",
+    height: 50,
     borderRadius: 20,
     marginBottom: 16,
     marginTop: 16,

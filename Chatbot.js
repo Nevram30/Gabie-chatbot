@@ -10,8 +10,39 @@ const BOT_USER = {
   avatar: "https://i.imgur.com/7k12EPD.png",
 };
 
-const Chatbot = () => {
+export default function Chatbot() {
   const [messages, setMessages] = useState([
+    {
+      _id: 3,
+      text: 
+      `What are the degree programs offered?
+
+What are the services offered?
+
+How much is the tuition for HM?
+
+How much is the tuition for EDUCATION MAJOR IN ENGLISH?
+
+How much is the tuition for EDUCATION MAJOR IN MATH?
+
+How much is the tuition for EDUCATION MAJOR IN SOCIAL STUDIES?
+
+How much is the tuition for EDUCATION BEED?
+
+How much is the tuition for JHS?
+
+How much is the tuition for SHS GAS?
+
+How much is the tuition for SHS HUMSS?`,
+      createdAt: new Date(),
+      user: BOT_USER,
+    },
+    {
+      _id: 2,
+      text: `This are the possible Question Queries:`,
+      createdAt: new Date(),
+      user: BOT_USER,
+    },
     {
       _id: 1,
       text: `Hi! I am Gabie the FAQ bot 🤖 from Gabreil Taborin College of Davao. I can help you with any questions you have.`,
@@ -35,20 +66,21 @@ const Chatbot = () => {
   };
 
   const onSend = (messages = []) => {
+    
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, messages)
     );
 
     let message = messages[0].text;
 
-    Dialogflow_V2.requestQuery(
-      message,
-      (result) => handleGoogleResponse(result),
-      (error) => console.log(error)
-    );
+      Dialogflow_V2.requestQuery(
+        message,
+        (result) => handleGoogleResponse(result),
+        (error) => console.log(error)
+      );
   };
 
-  const sendBotResponse = (text) => {
+ const sendBotResponse = (text) => {
     let msg = {
       _id: messages.length + 1,
       text,
@@ -58,6 +90,30 @@ const Chatbot = () => {
 
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, [msg])
+    );
+
+    // Prompt the user to continue with clickable buttons
+    const continueMsg = {
+      _id: messages.length + 2,
+      text: 'Do you want to continue?',
+      createdAt: new Date(),
+      user: BOT_USER,
+      quickReplies: {
+        values: [
+          {
+            title: 'Yes',
+            value: 'yes',
+          },
+          {
+            title: 'No',
+            value: 'no',
+          },
+        ],
+      },
+    };
+
+    setMessages((previousMessages) =>
+      GiftedChat.append(previousMessages, [continueMsg])
     );
   };
 
@@ -97,42 +153,71 @@ const Chatbot = () => {
 
 //   const handleSend = (newMessages) => {
 //     setMessages((previousMessages) => GiftedChat.append(previousMessages, newMessages));
-
-//     const messageText = newMessages[0].text;
-//     const botResponse = getBotResponse(messageText);
-
-//     const botMessage = {
-//       _id: Math.round(Math.random() * 1000000),
-//       text: botResponse,
-//       createdAt: new Date(),
-//       user: {
-//         _id: 2,
-//         name: 'Bot',
-//       },
-//     };
-
-//     setMessages((previousMessages) => GiftedChat.append(previousMessages, [botMessage]));
+  
+//     const userMessage = newMessages[0].text;
+//     const botResponse = getBotResponse(userMessage);
+  
+//     // Check if the bot response is an event response
+//     if (botResponse.eventResponse) {
+//       // Display the pill message with options from the event response
+//       const eventMessage = {
+//         _id: Math.round(Math.random() * 1000000),
+//         text: botResponse.eventResponse,
+//         createdAt: new Date(),
+//         user: {
+//           _id: 2,
+//           name: 'Bot',
+//         },
+//         quickReplies: {
+//           type: 'radio',
+//           values: botResponse.options.map(option => ({ title: option, value: option })),
+//         },
+//       };
+  
+//       setMessages((previousMessages) => GiftedChat.append(previousMessages, [eventMessage]));
+//     } else {
+//       // Standard bot response handling
+//       const botMessage = {
+//         _id: Math.round(Math.random() * 1000000),
+//         text: botResponse,
+//         createdAt: new Date(),
+//         user: {
+//           _id: 2,
+//           name: 'Bot',
+//         },
+//       };
+  
+//       setMessages((previousMessages) => GiftedChat.append(previousMessages, [botMessage]));
+//     }
 //   };
+  
+
 
 //   const getBotResponse = (userMessage) => {
 //     const categories = Object.keys(responses.responses);
-
+  
 //     // Loop through categories to check if the user's message matches any
 //     for (const category of categories) {
 //       const categoryResponses = responses.responses[category];
 //       const userMessageLower = userMessage.toLowerCase();
-
+  
 //       for (const [question, answers] of Object.entries(categoryResponses)) {
 //         if (userMessageLower.includes(question.toLowerCase())) {
-//           return answers;
+//           // If the matched question is "DO you want to continue?"
+//           if (question.toLowerCase() === "do you want to continue?") {
+//             // Return a special marker to indicate the event response
+//             return { eventResponse: "DO you want to continue?", options: answers };
+//           } else {
+//             return answers;
+//           }
 //         }
 //       }
 //     }
-
+  
 //     // Default response if no match is found
 //     return "I'm sorry, I didn't understand that.";
 //   };
-
+  
 //   return (
 //     <GiftedChat
 //       messages={messages}
@@ -143,5 +228,3 @@ const Chatbot = () => {
 //     />
 //   );
 // };
-
-export default Chatbot;
