@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { GiftedChat } from "react-native-gifted-chat";
-import { Dialogflow_V2 } from "react-native-dialogflow";
 
+import { Dialogflow_V2 } from "react-native-dialogflow";
 import { dialogflowConfig } from "./env";
+
+const botAvatar = require('./assets/images/animation3.png')
 
 const BOT_USER = {
   _id: 2,
   name: "FAQ Bot",
-  avatar: "https://i.imgur.com/7k12EPD.png",
+  avatar: botAvatar,
 };
 
 export default function Chatbot() {
@@ -90,30 +92,6 @@ How much is the tuition for SHS HUMSS?`,
 
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, [msg])
-    );
-
-    // Prompt the user to continue with clickable buttons
-    const continueMsg = {
-      _id: messages.length + 2,
-      text: 'Do you want to continue?',
-      createdAt: new Date(),
-      user: BOT_USER,
-      quickReplies: {
-        values: [
-          {
-            title: 'Yes',
-            value: 'yes',
-          },
-          {
-            title: 'No',
-            value: 'no',
-          },
-        ],
-      },
-    };
-
-    setMessages((previousMessages) =>
-      GiftedChat.append(previousMessages, [continueMsg])
     );
   };
 

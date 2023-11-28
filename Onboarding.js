@@ -2,7 +2,6 @@ import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import Swiper from "react-native-swiper";
 import { useNavigation } from "@react-navigation/native";
-import Poppins from "./assets/fonts/Poppins-Regular.ttf";
 
 export default function OnboardingScreen() {
   const navigation = useNavigation();
@@ -67,7 +66,6 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     textAlign: "center",
-    fontFamily: "Poppins-Regular",
   },
   getStartedButton: {
     backgroundColor: "#D0291C",
