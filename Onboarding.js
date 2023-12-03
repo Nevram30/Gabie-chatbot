@@ -18,9 +18,9 @@ export default function OnboardingScreen() {
           source={require("./assets/images/animation2.png")}
           style={styles.logo}
         />
-        <Text style={styles.title}>The name of the chatbot is Gabie</Text>
+        <Text style={styles.title}>The name of the chatbot is GabbY</Text>
         <Text style={styles.subtitle}>
-          Gabie is the chatbot app for Gabriel Taborin College of Davao for
+          GabbY is the chatbot app for Gabriel Taborin College of Davao for
           school inqueries
         </Text>
       </View>

@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
+  ActivityIndicator,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
@@ -13,14 +14,17 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 export default function LoginScreen() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const auth = getAuth();
   const navigation = useNavigation();
 
   const handleLogin = () => {
+    setLoading(true);
     signInWithEmailAndPassword(auth, username, password)
       .then((userCredential) => {
         const user = userCredential.user;
         const unsubscribe = auth.onAuthStateChanged(() => {
+          setLoading(false);
           if (user) {
             navigation.replace("Home");
           }
@@ -40,7 +44,7 @@ export default function LoginScreen() {
           source={require("./assets/images/gtcd.png")}
           style={styles.logo}
         />
-        <Text style={styles.title}>Gabie Chatbot</Text>
+        <Text style={styles.title}>GabbY Chatbot</Text>
       </View>
       <View style={styles.subContainer}>
         <Text style={styles.subHeader}>Sign In</Text>
@@ -57,8 +61,16 @@ export default function LoginScreen() {
           value={password}
           onChangeText={(text) => setPassword(text)}
         />
-        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-          <Text style={styles.loginButtonText}>Login</Text>
+        <TouchableOpacity
+          style={styles.loginButton}
+          onPress={handleLogin}
+          disabled={loading}
+        >
+          {loading ? (
+            <ActivityIndicator color="#292C33" size="small" />
+          ) : (
+            <Text style={styles.loginButtonText}>Login</Text>
+          )}
         </TouchableOpacity>
         <Text style={styles.accountHeader}>
           Do you have an account?{" "}
@@ -85,16 +97,16 @@ const styles = StyleSheet.create({
   subContainer: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: "#585E6C",
+    backgroundColor: "#A9A9A9",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
-  subHeader:{
+  subHeader: {
     padding: 20,
     fontSize: 26,
     marginRight: 200,
     marginTop: 10,
-    color: "white"
+    color: "white",
   },
   title: {
     fontSize: 26,
@@ -105,18 +117,19 @@ const styles = StyleSheet.create({
   },
   input: {
     width: "80%",
-    height: 40,
+    height: 50,
     borderRadius: 10,
     borderColor: "gray",
     borderWidth: 1,
     marginBottom: 16,
     padding: 8,
     backgroundColor: "white",
+    fontSize: 15,
   },
   loginButton: {
     backgroundColor: "#D0291C",
     width: "80%",
-    height: 40,
+    height: 45,
     borderRadius: 20,
     marginBottom: 16,
     justifyContent: "center",
@@ -136,7 +149,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
   },
-  accountHeader:{
-    color: "white"
-  }
+  accountHeader: {
+    color: "white",
+  },
 });
