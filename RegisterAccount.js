@@ -9,9 +9,14 @@ import {
   TextInput,
   Modal,
   Pressable,
+  ActivityIndicator,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import PrivacyCheckbox from "./PrivacyCheckbox";
 
 const RegisterAccount = () => {
@@ -29,11 +34,10 @@ const RegisterAccount = () => {
 
   const handleSignup = () => {
     if (isLoading) {
-      // Avoid multiple sign-up attempts while already in progress
       return;
     }
 
-    if (!username || !password) {
+    if (!username || !password || password !== confirmpassword) {
       alert("Signup Error: Username and password are required.");
       return;
     }
@@ -79,18 +83,23 @@ const RegisterAccount = () => {
       .then((userCredential) => {
         const user = userCredential.user;
         alert("Signup Successful: Your account has been created.");
-        useEffect(() => {
-          const unsubscribe = auth.onAuthStateChanged(() => {
-            if (user) {
-              navigation.replace("Login");
-            }
-            setIsLoading(false);
+
+        // Directly log in after successful account creation
+        signInWithEmailAndPassword(auth, username, password)
+          .then(() => {
+            alert("Login Successful: You have been logged in.");
+            // Navigate to the desired screen after login (replace 'Home' with your screen name)
+            navigation.replace("Home");
+          })
+          .catch((error) => {
+            alert("Login Error!" + error.message);
           });
-          return unsubscribe;
-        }, []);
       })
       .catch((error) => {
         alert("Account Not Created!" + error.message);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -112,7 +121,7 @@ const RegisterAccount = () => {
           value={username}
           onChangeText={(text) => {
             setUsername(text);
-            setUsernameError(""); // Clear the error when the user starts typing
+            setUsernameError("");
           }}
         />
         <Text style={styles.errorText}>{usernameError}</Text>
@@ -126,7 +135,7 @@ const RegisterAccount = () => {
           value={password}
           onChangeText={(text) => {
             setPassword(text);
-            setPasswordError(""); // Clear the error when the user starts typing
+            setPasswordError("");
           }}
         />
         <Text style={styles.errorText}>{passwordError}</Text>
@@ -151,11 +160,12 @@ const RegisterAccount = () => {
           disabled={isLoading}
           onPress={handleSignup}
         >
-          <Text style={styles.createtext}>
-            {isLoading ? "Creating Account..." : "Create Account"}
-          </Text>
+          {isLoading ? (
+            <ActivityIndicator color="#292C33" size="small" />
+          ) : (
+            <Text style={styles.createtext}>Create Account</Text>
+          )}
         </TouchableOpacity>
-        {/* Privacy Policy Error Modal */}
         <Modal
           animationType="fade"
           transparent={true}
@@ -254,13 +264,13 @@ const styles = StyleSheet.create({
   modalText: {
     fontSize: 16,
     marginBottom: 20,
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
   },
   modalCloseButton: {
     backgroundColor: "#D0291C",
     borderRadius: 5,
     padding: 10,
-    alignSelf: 'flex-end',
+    alignSelf: "flex-end",
   },
   modalCloseButtonText: {
     color: "white",
