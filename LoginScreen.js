@@ -24,16 +24,19 @@ export default function LoginScreen() {
       .then((userCredential) => {
         const user = userCredential.user;
         const unsubscribe = auth.onAuthStateChanged(() => {
-          setLoading(false);
-          if (user) {
-            navigation.replace("Home");
-          }
+          setTimeout(() => {
+            setLoading(false);
+            if (user) {
+              navigation.replace("Home");
+            }
+          }, 500);
         });
 
         return unsubscribe;
       })
       .catch(() => {
         alert("Please fill your username and password!");
+        setLoading(false);
       });
   };
 
@@ -49,25 +52,24 @@ export default function LoginScreen() {
       <View style={styles.subContainer}>
         <Text style={styles.subHeader}>Sign In</Text>
         <TextInput
-          style={styles.input}
+          style={styles.inputname}
           placeholder="Username"
           value={username}
           onChangeText={(text) => setUsername(text)}
         />
         <TextInput
-          style={styles.input}
+          style={styles.inputpass}
           placeholder="Password"
           secureTextEntry
           value={password}
           onChangeText={(text) => setPassword(text)}
         />
-        <TouchableOpacity
-          style={styles.loginButton}
-          onPress={handleLogin}
-          disabled={loading}
-        >
+        <TouchableOpacity style={styles.forgotPass}>
+          <Text style={styles.forgotPassText}>Forgot your Password?</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
           {loading ? (
-            <ActivityIndicator color="#292C33" size="small" />
+            <ActivityIndicator color="#ffff" size="small" />
           ) : (
             <Text style={styles.loginButtonText}>Login</Text>
           )}
@@ -75,7 +77,7 @@ export default function LoginScreen() {
         <Text style={styles.accountHeader}>
           Do you have an account?{" "}
           <Text
-            style={{ color: "white" }}
+            style={{ color: "#D0291C" }}
             onPress={() => navigation.navigate("Register")}
           >
             Register
@@ -115,7 +117,7 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     marginBottom: 20,
   },
-  input: {
+  inputname: {
     width: "80%",
     height: 50,
     borderRadius: 10,
@@ -126,10 +128,31 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     fontSize: 15,
   },
+  inputpass: {
+    width: "80%",
+    height: 50,
+    borderRadius: 10,
+    borderColor: "gray",
+    borderWidth: 1,
+    marginBottom: 0,
+    padding: 8,
+    backgroundColor: "white",
+    fontSize: 15,
+  },
+  forgotPass: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    width: "80%",
+    marginBottom: 10,
+  },
+  forgotPassText: {
+    color: "white",
+  },
   loginButton: {
     backgroundColor: "#D0291C",
     width: "80%",
-    height: 45,
+    height: 55,
     borderRadius: 20,
     marginBottom: 16,
     justifyContent: "center",

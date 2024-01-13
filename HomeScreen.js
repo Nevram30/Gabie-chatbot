@@ -16,25 +16,26 @@ export default function HomeScreen() {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const [isloading, isSetLoading] = useState(false);
+
   const handleSignOut = () => {
     isSetLoading(true);
     auth
       .signOut()
       .then(() => {
-        isSetLoading(false); // Set loading to false when the task is complete
-        navigation.replace("Login");
+        setTimeout(() => {
+          isSetLoading(false);
+          navigation.replace("Login");
+        }, 500);
       })
       .catch((error) => (alert = { error, message }));
   };
 
   const handleGetStarted = () => {
-    setLoading(true); // Set loading to true when the button is pressed
-
-    // Simulate an asynchronous task (e.g., API call) with setTimeout
+    setLoading(true);
     setTimeout(() => {
-      setLoading(false); // Set loading to false when the task is complete
+      setLoading(false);
       navigation.navigate("Chatbot");
-    }, 500); // Adjust the timeout duration as needed
+    }, 500);
   };
 
   return (
