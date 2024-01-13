@@ -10,20 +10,6 @@ import OnboardingScreen from "./Onboarding";
 const Stack = createStackNavigator();
 
 const App = () => {
-  // const [user, setUser] = useState(null);
-
-  // // Check the user's authentication status
-  // useEffect(() => {
-  //   // const unsubscribe = firebase.auth().onAuthStateChanged((authUser) => {
-  //   //   setUser(authUser);
-  //   // });
-  //  Put this in the NavigationContainer
-  // {user && user.admin ? (
-  //   <Stack.Screen name="Admin" component={AdminScreen} />
-  // ) : null}
-  //   // return unsubscribe;
-  // }, []);
-
   return (
     <NavigationContainer>
       <Stack.Navigator headerMode="none" initialRouteName="Onboarding">
