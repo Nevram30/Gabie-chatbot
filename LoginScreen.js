@@ -53,6 +53,17 @@ export default function LoginScreen() {
       });
   };
 
+  const handleForgotPassword = () => {
+    auth
+      .sendPasswordResetEmail(username)
+      .then(() => {
+        alert("Password reset email sent!");
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
+
   return (
     <>
       <View style={styles.container}>
@@ -77,7 +88,10 @@ export default function LoginScreen() {
           value={password}
           onChangeText={(text) => setPassword(text)}
         />
-        <TouchableOpacity style={styles.forgotPass}>
+        <TouchableOpacity
+          style={styles.forgotPass}
+          onPress={handleForgotPassword}
+        >
           <Text style={styles.forgotPassText}>Forgot your Password?</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
