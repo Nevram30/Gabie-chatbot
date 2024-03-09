@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export default function LoginScreen() {
@@ -17,6 +18,17 @@ export default function LoginScreen() {
   const [loading, setLoading] = useState(false);
   const auth = getAuth();
   const navigation = useNavigation();
+
+  useEffect(() => {
+    checkSession();
+  }, []);
+
+  const checkSession = async () => {
+    const sessionToken = await AsyncStorage.getItem("sessionToken");
+    if (sessionToken) {
+      navigation.replace("Home");
+    }
+  };
 
   const handleLogin = () => {
     setLoading(true);
@@ -27,6 +39,7 @@ export default function LoginScreen() {
           setTimeout(() => {
             setLoading(false);
             if (user) {
+              AsyncStorage.setItem("sessionToken", "your_session_token_here");
               navigation.replace("Home");
             }
           }, 500);
@@ -35,7 +48,7 @@ export default function LoginScreen() {
         return unsubscribe;
       })
       .catch(() => {
-        alert("Please fill your username and password!");
+        alert("Please fill in your username and password!");
         setLoading(false);
       });
   };

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   View,
   SafeAreaView,
@@ -11,23 +11,37 @@ import {
 } from "react-native";
 import { auth } from "./firebaseConfig";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function HomeScreen() {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const [isloading, isSetLoading] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
+
+  AsyncStorage.setItem("userEmail", userEmail);
+
+  useEffect(() => {
+    const currentUser = auth.currentUser;
+    if (currentUser) {
+      setUserEmail(currentUser.email);
+    }
+  }, []);
 
   const handleSignOut = () => {
     isSetLoading(true);
     auth
       .signOut()
       .then(() => {
+        AsyncStorage.removeItem("sessionToken");
         setTimeout(() => {
           isSetLoading(false);
           navigation.replace("Login");
         }, 500);
       })
-      .catch((error) => (alert = { error, message }));
+      .catch((error) => {
+        console.log("Sign out error:", error);
+      });
   };
 
   const handleGetStarted = () => {
@@ -41,7 +55,11 @@ export default function HomeScreen() {
   return (
     <>
       <View style={styles.header}>
-        <Text style={styles.title}></Text>
+        <Text style={styles.title}>
+          {userEmail && (
+            <Text style={styles.title}>Logged in as: {userEmail}</Text>
+          )}
+        </Text>
         <View style={{ paddingTop: 30 }}>
           <Text style={[styles.title, { fontSize: 18, fontWeight: "600" }]}>
             How to use
