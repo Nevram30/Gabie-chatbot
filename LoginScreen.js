@@ -10,7 +10,11 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+} from "firebase/auth";
 
 export default function LoginScreen() {
   const [username, setUsername] = useState("");
@@ -54,13 +58,12 @@ export default function LoginScreen() {
   };
 
   const handleForgotPassword = () => {
-    auth
-      .sendPasswordResetEmail(username)
+    sendPasswordResetEmail(auth, username)
       .then(() => {
         alert("Password reset email sent!");
       })
-      .catch((error) => {
-        alert(error.message);
+      .catch(() => {
+        alert("Password reset email not sent!");
       });
   };
 
