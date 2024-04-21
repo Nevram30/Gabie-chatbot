@@ -28,6 +28,7 @@ const RegisterAccount = () => {
   const [privacyChecked, setPrivacyChecked] = useState(false);
   const [privacyErrorModalVisible, setPrivacyErrorModalVisible] =
     useState(false);
+  const [hasAgreedToPrivacy, setHasAgreedToPrivacy] = useState(false);
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const auth = getAuth();
@@ -89,7 +90,7 @@ const RegisterAccount = () => {
           .then(() => {
             alert("Login Successful: You have been logged in.");
             // Navigate to the desired screen after login (replace 'Home' with your screen name)
-            navigation.replace("Home");
+            navigation.replace("Login");
           })
           .catch((error) => {
             alert("Login Error!" + error.message);
@@ -101,6 +102,11 @@ const RegisterAccount = () => {
       .finally(() => {
         setIsLoading(false);
       });
+  };
+
+  const handleContinuePrivacy = () => {
+    setHasAgreedToPrivacy(true); // Update the state to indicate the user has agreed to the privacy policy
+    setPrivacyErrorModalVisible(false); // Close the modal
   };
 
   return (
@@ -150,10 +156,12 @@ const RegisterAccount = () => {
           onChangeText={setConfirmpassword}
         />
 
-        <PrivacyCheckbox
-          checked={privacyChecked}
-          onPress={() => setPrivacyChecked(!privacyChecked)}
-        />
+        {!hasAgreedToPrivacy && ( // Render the PrivacyCheckbox only if the user hasn't agreed to the privacy policy
+          <PrivacyCheckbox
+            checked={privacyChecked}
+            onPress={() => setPrivacyChecked(!privacyChecked)}
+          />
+        )}
 
         <TouchableOpacity
           style={styles.createbutton}
@@ -179,7 +187,7 @@ const RegisterAccount = () => {
               </Text>
               <Pressable
                 style={styles.modalCloseButton}
-                onPress={() => setPrivacyErrorModalVisible(false)}
+                onPress={handleContinuePrivacy}
               >
                 <Text style={styles.modalCloseButtonText}>Okay</Text>
               </Pressable>
@@ -217,7 +225,7 @@ const styles = StyleSheet.create({
   label1: {
     fontWeight: "normal",
     fontSize: 15,
-    marginTop: 9,
+    marginTop: 0,
     color: "white",
     justifyContent: "center",
   },
@@ -225,7 +233,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderColor: "gray",
     borderWidth: 1,
-    marginTop: 10,
+    marginTop: 5,
     padding: 15,
     fontSize: 16,
     borderRadius: 10,

@@ -10,11 +10,8 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  sendPasswordResetEmail,
-} from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import ForgotPassword from "./ForgotPassword";
 
 export default function LoginScreen() {
   const [username, setUsername] = useState("");
@@ -57,15 +54,16 @@ export default function LoginScreen() {
       });
   };
 
-  const handleForgotPassword = () => {
-    sendPasswordResetEmail(auth, username)
-      .then(() => {
-        alert("Password reset email sent!");
-      })
-      .catch(() => {
-        alert("Password reset email not sent!");
-      });
-  };
+  // const handleForgotPassword = () => {
+  //   auth
+  //     .sendPasswordResetEmail(username)
+  //     .then(() => {
+  //       alert("Password reset email sent!");
+  //     })
+  //     .catch((error) => {
+  //       alert(error.message);
+  //     });
+  // };
 
   return (
     <>
@@ -93,7 +91,9 @@ export default function LoginScreen() {
         />
         <TouchableOpacity
           style={styles.forgotPass}
-          onPress={handleForgotPassword}
+          onPress={() =>
+            navigation.navigate("ForgotPassword", { userEmail: username })
+          }
         >
           <Text style={styles.forgotPassText}>Forgot your Password?</Text>
         </TouchableOpacity>
