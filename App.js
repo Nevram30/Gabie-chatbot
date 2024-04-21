@@ -6,6 +6,7 @@ import HomeScreen from "./HomeScreen";
 import RegisterAccount from "./RegisterAccount";
 import Chatbot from "./Chatbot";
 import OnboardingScreen from "./Onboarding";
+import ForgotPassword from "./ForgotPassword";
 
 const Stack = createStackNavigator();
 
@@ -19,6 +20,7 @@ const App = () => {
         <Stack.Screen name="Onboarding" component={OnboardingScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
         <Stack.Screen name="Register" component={RegisterAccount} />
         <Stack.Screen name="Chatbot" component={Chatbot} />
       </Stack.Navigator>
