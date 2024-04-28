@@ -18,6 +18,7 @@ export default function HomeScreen() {
   const [loading, setLoading] = useState(false);
   const [isloading, isSetLoading] = useState(false);
   const [userEmail, setUserEmail] = useState("");
+  // const [aboutGTCDModalVisible, setaboutGTCDModalVisible] = useState(false);
 
   AsyncStorage.setItem("userEmail", userEmail);
 
@@ -52,6 +53,10 @@ export default function HomeScreen() {
     }, 500);
   };
 
+  const handleAboutView = () => {
+    navigation.navigate("About");
+  };
+
   return (
     <>
       <View style={styles.header}>
@@ -60,17 +65,21 @@ export default function HomeScreen() {
             <Text style={styles.title}>Logged in as: {userEmail}</Text>
           )}
         </Text>
-        <View style={{ paddingTop: 30 }}>
+        <View style={{ paddingTop: 3 }}>
           <Text style={[styles.title, { fontSize: 18, fontWeight: "600" }]}>
-            How to use
+            Hi There 👋
           </Text>
           <Text style={[styles.title, { marginTop: 4 }]}>
-            Please scroll the image below to see User's Tuitorial's
+            Welcome to Gabby. We Reply to Every Single Message So Fell to ASk Us
+            Anything you can see how to use this app by scrolling below
           </Text>
         </View>
       </View>
       <View style={styles.container}>
         <ScrollView style={styles.subContainer}>
+          <View>
+            <Text style={styles.subContainerUserGuide}>User's Guide</Text>
+          </View>
           <SafeAreaView>
             <Image
               source={require("./assets/images/user-guide-1.png")}
@@ -92,6 +101,11 @@ export default function HomeScreen() {
               padding: 15,
             }}
           >
+            <View>
+              <Text style={{ color: "white", fontWeight: "500" }}>
+                Start Conversation
+              </Text>
+            </View>
             <View style={styles.profileChat}>
               <View
                 style={{
@@ -125,8 +139,18 @@ export default function HomeScreen() {
               {loading ? (
                 <ActivityIndicator color="#292C33" size="small" />
               ) : (
-                <Text style={styles.loginButtonText}>Start Chat Now</Text>
+                <Text style={styles.loginButtonText}>
+                  Send Message to Gabby
+                </Text>
               )}
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.loginButtonFAQ, { backgroundColor: "#D0291C" }]}
+              onPress={handleAboutView}
+            >
+              <Text style={[styles.loginButtonText, { color: "white" }]}>
+                About GTCD
+              </Text>
             </TouchableOpacity>
           </View>
           <TouchableOpacity
@@ -163,7 +187,7 @@ const styles = StyleSheet.create({
   header: {
     justifyContent: "center",
     padding: 15,
-    marginTop: 30,
+    marginTop: 0,
     height: 150,
     backgroundColor: "#D0291C",
   },
@@ -182,6 +206,15 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 40,
   },
+  loginButtonFAQ: {
+    backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 10,
+    borderRadius: 20,
+    width: "100%",
+    height: 40,
+  },
   loginButtonText: {
     color: "#292C33",
     fontSize: 16,
@@ -190,8 +223,6 @@ const styles = StyleSheet.create({
   subContainer: {
     backgroundColor: "white",
     top: 10,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
   },
   activeButtons: {
     top: 6,
@@ -200,5 +231,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     display: "flex",
     gap: 8,
+  },
+  subContainerUserGuide: {
+    paddingLeft: 10,
+    fontSize: 18,
+    paddingTop: 10,
+    fontWeight: "600",
   },
 });

@@ -7,6 +7,7 @@ import RegisterAccount from "./RegisterAccount";
 import Chatbot from "./Chatbot";
 import OnboardingScreen from "./Onboarding";
 import ForgotPassword from "./ForgotPassword";
+import About from "./About";
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,7 @@ const App = () => {
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
         <Stack.Screen name="Register" component={RegisterAccount} />
         <Stack.Screen name="Chatbot" component={Chatbot} />
+        <Stack.Screen name="About" component={About} />
       </Stack.Navigator>
     </NavigationContainer>
   );

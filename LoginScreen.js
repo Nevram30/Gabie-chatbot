@@ -11,7 +11,6 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import ForgotPassword from "./ForgotPassword";
 
 export default function LoginScreen() {
   const [username, setUsername] = useState("");
@@ -54,25 +53,20 @@ export default function LoginScreen() {
       });
   };
 
-  // const handleForgotPassword = () => {
-  //   auth
-  //     .sendPasswordResetEmail(username)
-  //     .then(() => {
-  //       alert("Password reset email sent!");
-  //     })
-  //     .catch((error) => {
-  //       alert(error.message);
-  //     });
-  // };
-
   return (
     <>
       <View style={styles.container}>
         <Image
-          source={require("./assets/images/gtcd.png")}
+          source={require("./assets/images/gtcd0.png")}
           style={styles.logo}
         />
-        <Text style={styles.title}>GabbY Chatbot</Text>
+        <View style={styles.containerAvatar}>
+          <Image
+            source={require("./assets/images/avatar.png")}
+            style={styles.logoAvatar}
+          />
+          <Text style={styles.title}>GabbY Chatbot</Text>
+        </View>
       </View>
       <View style={styles.subContainer}>
         <Text style={styles.subHeader}>Sign In</Text>
@@ -121,10 +115,15 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 50,
+    paddingTop: 40,
     justifyContent: "center",
     alignItems: "center",
     fontFamily: "",
+  },
+  containerAvatar: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   subContainer: {
     flex: 1,
@@ -139,6 +138,7 @@ const styles = StyleSheet.create({
     marginRight: 200,
     marginTop: 10,
     color: "white",
+    fontWeight: "500",
   },
   title: {
     fontSize: 26,
@@ -193,9 +193,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   logo: {
-    width: 150,
-    height: 150,
-    marginBottom: 16,
+    width: 180,
+    height: 180,
+  },
+  logoAvatar: {
+    width: 50,
+    height: 50,
   },
   loginModal: {
     backgroundColor: "white",

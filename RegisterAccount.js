@@ -179,21 +179,7 @@ const RegisterAccount = () => {
           transparent={true}
           visible={privacyErrorModalVisible}
           onRequestClose={() => setPrivacyErrorModalVisible(false)}
-        >
-          <View style={styles.modalContainer}>
-            <View style={styles.modalContent}>
-              <Text style={styles.modalText}>
-                You must agree to the{"\n"}Privacy Policy.
-              </Text>
-              <Pressable
-                style={styles.modalCloseButton}
-                onPress={handleContinuePrivacy}
-              >
-                <Text style={styles.modalCloseButtonText}>Okay</Text>
-              </Pressable>
-            </View>
-          </View>
-        </Modal>
+        ></Modal>
       </View>
     </ScrollView>
   );
