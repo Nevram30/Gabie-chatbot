@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import { getAuth } from "firebase/auth";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 export default function ForgotPassword({ userEmail }) {
   const [email, setEmail] = useState(userEmail);
@@ -14,14 +14,17 @@ export default function ForgotPassword({ userEmail }) {
 
   const handleForgotPassword = () => {
     const auth = getAuth();
-    auth
-      .sendPasswordResetEmail(email)
-      .then(() => {
-        setMessage("Password reset email sent!");
-      })
-      .catch((error) => {
-        setMessage(error.message);
-      });
+    if (auth) {
+      sendPasswordResetEmail(auth, email)
+        .then(() => {
+          setMessage("Request password reset email sent!");
+        })
+        .catch((error) => {
+          setMessage(error.message);
+        });
+    } else {
+      setMessage("Authentication service is not available.");
+    }
   };
 
   return (

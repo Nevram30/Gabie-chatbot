@@ -4,8 +4,9 @@ import { GiftedChat } from "react-native-gifted-chat";
 import { Dialogflow_V2 } from "react-native-dialogflow";
 import { dialogflowConfig } from "./env";
 import * as Speech from "expo-speech";
-
-const botAvatar = require("./assets/images/animation3.png");
+import { View, Text, TouchableOpacity, Modal } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+const botAvatar = require("./assets/images/avatar.png");
 
 const BOT_USER = {
   _id: 2,
@@ -14,6 +15,7 @@ const BOT_USER = {
 };
 
 export default function Chatbot() {
+  const navigation = useNavigation();
   const [messages, setMessages] = useState([
     {
       _id: 2,
@@ -28,6 +30,13 @@ export default function Chatbot() {
       user: BOT_USER,
     },
   ]);
+  const [previousResponse, setPreviousResponse] = useState("");
+  const [showRatingModal, setShowRatingModal] = useState("");
+
+  const handleBack = () => {
+    setShowRatingModal(true);
+    // navigation.navigate("Home");
+  };
 
   useEffect(() => {
     Dialogflow_V2.setConfiguration(
@@ -40,9 +49,17 @@ export default function Chatbot() {
 
   const handleGoogleResponse = (result) => {
     let text = result.queryResult.fulfillmentMessages[0].text.text[0];
-    Speech.speak(text);
+    // Check if the current response is the same as the previous one
+    if (text !== previousResponse) {
+      Speech.speak(text);
+      setPreviousResponse(text);
+    }
     sendBotResponse(text);
     pillBotResponse(text);
+    // Delay showing the rating modal by 3 seconds (adjust the time as needed)
+    // setTimeout(() => {
+    //   setShowRatingModal(true);
+    // }, 20000);
   };
 
   const onSend = (messages = []) => {
@@ -67,10 +84,8 @@ export default function Chatbot() {
     );
   };
 
-  const pillBotResponse = (text) => {
-    Speech.speak(text);
-
-    let pillMsg = {
+  const pillBotResponse = () => {
+    let pillMsgs = {
       _id: messages.length + 2,
       text: "Click and Select what you want to know.",
       createdAt: new Date(),
@@ -126,13 +141,11 @@ export default function Chatbot() {
     };
 
     setMessages((previousMessages) =>
-      GiftedChat.append(previousMessages, [pillMsg])
+      GiftedChat.append(previousMessages, [pillMsgs])
     );
   };
 
   const sendBotResponse = (text) => {
-    Speech.speak(text);
-
     let msg = {
       _id: messages.length + 1,
       text,
@@ -146,73 +159,118 @@ export default function Chatbot() {
   };
 
   const onQuickReply = (quickReply) => {
-    if (quickReply[0].value === "What are the degree programs offered?") {
+    const clickedValue = quickReply[0].value;
+
+    // Filter out the pill message from the messages state
+    const filteredMessages = messages.filter(
+      (message) => message.text !== "Click and Select what you want to know."
+    );
+
+    // Set the filtered messages as the new state
+    setMessages(filteredMessages);
+
+    // Send the new message based on the clicked quick reply
+    if (clickedValue === "What are the degree programs offered?") {
       const quickMessage = "What are the degree programs offered?";
       let message = quickMessage;
       quickSend(message);
-    } else if (quickReply[0].value === "What are the services offered?") {
+    } else if (clickedValue === "What are the services offered?") {
       const quickMessage = "What are the services offered?";
       let message = quickMessage;
       quickSend(message);
-    } else if (quickReply[0].value === "How much is the tuition for HM?") {
+    } else if (clickedValue === "How much is the tuition for HM?") {
       const quickMessage = "How much is the tuition for HM?";
       let message = quickMessage;
       quickSend(message);
     } else if (
-      quickReply[0].value ===
-      "How much is the tuition for EDUCATION MAJOR IN ENGLISH?"
+      clickedValue === "How much is the tuition for EDUCATION MAJOR IN ENGLISH?"
     ) {
       const quickMessage =
         "How much is the tuition for EDUCATION MAJOR IN ENGLISH?";
       let message = quickMessage;
       quickSend(message);
     } else if (
-      quickReply[0].value ===
-      "How much is the tuition for EDUCATION MAJOR IN MATH?"
+      clickedValue === "How much is the tuition for EDUCATION MAJOR IN MATH?"
     ) {
       const quickMessage =
         "How much is the tuition for EDUCATION MAJOR IN MATH?";
       let message = quickMessage;
       quickSend(message);
     } else if (
-      quickReply[0].value ===
+      clickedValue ===
       "How much is the tuition for EDUCATION MAJOR IN SOCIAL STUDIES?"
     ) {
       const quickMessage =
         "How much is the tuition for EDUCATION MAJOR IN SOCIAL STUDIES?";
       let message = quickMessage;
       quickSend(message);
-    } else if (
-      quickReply[0].value === "How much is the tuition for EDUCATION BEED?"
-    ) {
+    } else if (clickedValue === "How much is the tuition for EDUCATION BEED?") {
       const quickMessage = "How much is the tuition for EDUCATION BEED?";
       let message = quickMessage;
       quickSend(message);
-    } else if (quickReply[0].value === "How much is the tuition for JHS?") {
+    } else if (clickedValue === "How much is the tuition for JHS?") {
       const quickMessage = "How much is the tuition for JHS?";
       let message = quickMessage;
       quickSend(message);
-    } else if (quickReply[0].value === "How much is the tuition for SHS GAS?") {
+    } else if (clickedValue === "How much is the tuition for SHS GAS?") {
       const quickMessage = "How much is the tuition for SHS GAS?";
       let message = quickMessage;
       quickSend(message);
-    } else if (
-      quickReply[0].value === "How much is the tuition for SHS HUMSS?"
-    ) {
+    } else if (clickedValue === "How much is the tuition for SHS HUMSS?") {
       const quickMessage = "How much is the tuition for SHS HUMSS?";
       let message = quickMessage;
       quickSend(message);
     }
   };
 
+  const handleRating = (rating) => {
+    // Handle the user's rating here (e.g., send it to a backend server)
+    setShowRatingModal(false);
+    navigation.navigate("Home");
+    // Hide rating options after the user submits a rating
+  };
+
   return (
-    <GiftedChat
-      messages={messages}
-      onQuickReply={onQuickReply}
-      onSend={(messages) => onSend(messages)}
-      user={{
-        _id: 1,
-      }}
-    />
+    <View style={{ flex: 1 }}>
+      <View style={{ paddingTop: 50, paddingLeft: 20 }}>
+        <TouchableOpacity onPress={handleBack}>
+          <Text>Go Back To Home</Text>
+        </TouchableOpacity>
+      </View>
+      <GiftedChat
+        messages={messages}
+        onQuickReply={onQuickReply}
+        onSend={(messages) => onSend(messages)}
+        user={{
+          _id: 1,
+        }}
+      />
+      <Modal visible={showRatingModal} animationType="none" transparent={true}>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+          }}
+        >
+          <View
+            style={{ backgroundColor: "white", padding: 20, borderRadius: 10 }}
+          >
+            <Text>Please rate your experience:</Text>
+            {/* Add rating UI here */}
+            {/* For simplicity, let's assume a basic star rating system */}
+            {[1, 2, 3, 4, 5].map((rating) => (
+              <TouchableOpacity
+                key={rating}
+                onPress={() => handleRating(rating)}
+              >
+                <Text>{rating} Stars</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
+      </Modal>
+    </View>
   );
 }
