@@ -4,8 +4,10 @@ import { GiftedChat } from "react-native-gifted-chat";
 import { Dialogflow_V2 } from "react-native-dialogflow";
 import { dialogflowConfig } from "./env";
 import * as Speech from "expo-speech";
-import { View, Text, TouchableOpacity, Modal } from "react-native";
+import { View, Text, TouchableOpacity, Modal, Image } from "react-native";
+import { Rating } from "react-native-ratings";
 import { useNavigation } from "@react-navigation/native";
+
 const botAvatar = require("./assets/images/avatar.png");
 
 const BOT_USER = {
@@ -32,6 +34,7 @@ export default function Chatbot() {
   ]);
   const [previousResponse, setPreviousResponse] = useState("");
   const [showRatingModal, setShowRatingModal] = useState("");
+  const [userRating, setUserRating] = useState(null);
 
   const handleBack = () => {
     setShowRatingModal(true);
@@ -49,17 +52,13 @@ export default function Chatbot() {
 
   const handleGoogleResponse = (result) => {
     let text = result.queryResult.fulfillmentMessages[0].text.text[0];
-    // Check if the current response is the same as the previous one
+
     if (text !== previousResponse) {
       Speech.speak(text);
       setPreviousResponse(text);
     }
     sendBotResponse(text);
     pillBotResponse(text);
-    // Delay showing the rating modal by 3 seconds (adjust the time as needed)
-    // setTimeout(() => {
-    //   setShowRatingModal(true);
-    // }, 20000);
   };
 
   const onSend = (messages = []) => {
@@ -234,7 +233,11 @@ export default function Chatbot() {
     <View style={{ flex: 1 }}>
       <View style={{ paddingTop: 50, paddingLeft: 20 }}>
         <TouchableOpacity onPress={handleBack}>
-          <Text>Go Back To Home</Text>
+          <Image
+            source={require("./assets/images/arrow.png")}
+            style={{ width: 55, height: 55 }}
+            resizeMode="contain"
+          />
         </TouchableOpacity>
       </View>
       <GiftedChat
@@ -260,14 +263,42 @@ export default function Chatbot() {
             <Text>Please rate your experience:</Text>
             {/* Add rating UI here */}
             {/* For simplicity, let's assume a basic star rating system */}
-            {[1, 2, 3, 4, 5].map((rating) => (
-              <TouchableOpacity
-                key={rating}
-                onPress={() => handleRating(rating)}
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                marginTop: 10,
+              }}
+            >
+              <Rating
+                type="star"
+                ratingCount={5}
+                imageSize={30}
+                showRating
+                onSwipeRating="none"
+                style={{ paddingVertical: 10 }}
+              />
+            </View>
+            <TouchableOpacity
+              style={{
+                backgroundColor: "red",
+                alignContent: "center",
+                padding: 10,
+                borderRadius: 15,
+                marginBottom: 5,
+                marginTop: 5,
+              }}
+              onPress={handleRating}
+            >
+              <Text style={{ color: "white", textAlign: "center" }}>Rate</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setShowRatingModal(false)}>
+              <Text
+                style={{ marginTop: 10, color: "blue", textAlign: "center" }}
               >
-                <Text>{rating} Stars</Text>
-              </TouchableOpacity>
-            ))}
+                Close
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
