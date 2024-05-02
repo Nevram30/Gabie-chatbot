@@ -34,7 +34,7 @@ export default function Chatbot() {
   ]);
   const [previousResponse, setPreviousResponse] = useState("");
   const [showRatingModal, setShowRatingModal] = useState("");
-  const [userRating, setUserRating] = useState(null);
+  const [showThankYouMessage, setShowThankYouMessage] = useState("");
 
   const handleBack = () => {
     setShowRatingModal(true);
@@ -225,8 +225,15 @@ export default function Chatbot() {
   const handleRating = (rating) => {
     // Handle the user's rating here (e.g., send it to a backend server)
     setShowRatingModal(false);
+    setShowThankYouMessage(true);
+  };
+
+  const handleClose = () => {
+    setShowThankYouMessage(false);
+  };
+
+  const handleGoToHome = () => {
     navigation.navigate("Home");
-    // Hide rating options after the user submits a rating
   };
 
   return (
@@ -298,6 +305,61 @@ export default function Chatbot() {
               >
                 Close
               </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+      <Modal
+        visible={showThankYouMessage}
+        animationType="none"
+        transparent={true}
+      >
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+          }}
+        >
+          <View
+            style={{
+              backgroundColor: "white",
+              padding: 20,
+              borderRadius: 10,
+            }}
+          >
+            <Text>Thank you for your rating us!</Text>
+            <Text
+              style={{
+                marginTop: 10,
+                textAlign: "center",
+              }}
+            >
+              God bless and Amping 😇
+            </Text>
+            <TouchableOpacity onPress={handleGoToHome}>
+              <Text
+                style={{
+                  marginTop: 30,
+                  color: "blue",
+                  textAlign: "center",
+                }}
+              >
+                Go To Home
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                backgroundColor: "red",
+                alignContent: "center",
+                padding: 10,
+                borderRadius: 15,
+                marginTop: 20,
+              }}
+              onPress={handleClose}
+            >
+              <Text style={{ color: "white", textAlign: "center" }}>Close</Text>
             </TouchableOpacity>
           </View>
         </View>
